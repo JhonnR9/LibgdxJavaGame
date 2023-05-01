@@ -5,7 +5,6 @@ import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.utils.Array;
 import com.github.czyzby.kiwi.util.gdx.collection.GdxArrays;
 import me.jhonn.configuration.preferences.ControlsData;
-import me.jhonn.service.controls.impl.GamePadControl;
 import me.jhonn.service.controls.impl.InactiveControl;
 import me.jhonn.service.controls.impl.KeyboardControl;
 import me.jhonn.service.controls.impl.TouchControl;
@@ -26,19 +25,7 @@ public enum ControlType {
             return control;
         }
     },
-    PAD {
-        @Override
-        public Control create(final ControlsData data) {
-            final Array<Controller> controllers = Controllers.getControllers();
-            if (GdxArrays.isEmpty(controllers) || !GdxArrays.isIndexValid(controllers, data.index)) {
-                // Controller unavailable. Fallback to inactive.
-                return new InactiveControl();
-            }
-            final Control control = new GamePadControl(controllers.get(data.index));
-            control.copy(data);
-            return control;
-        }
-    },
+
     INACTIVE {
         @Override
         public Control create(final ControlsData data) {

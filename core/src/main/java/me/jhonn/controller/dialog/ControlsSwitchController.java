@@ -17,7 +17,6 @@ import com.github.czyzby.lml.parser.action.ActionContainer;
 import me.jhonn.service.ControlsService;
 import me.jhonn.service.controls.Control;
 import me.jhonn.service.controls.ControlType;
-import me.jhonn.service.controls.impl.GamePadControl;
 import me.jhonn.service.controls.impl.InactiveControl;
 import me.jhonn.service.controls.impl.KeyboardControl;
 import me.jhonn.service.controls.impl.TouchControl;
@@ -48,7 +47,7 @@ public class ControlsSwitchController implements ActionContainer, ViewDialogShow
     public Iterable<ControlType> getControlTypes() {
         if (GdxUtilities.isRunningOnAndroid()) {
             // Keyboard controls on Android do not work well...
-            return GdxArrays.newArray(ControlType.TOUCH, ControlType.PAD, ControlType.INACTIVE);
+            return GdxArrays.newArray(ControlType.TOUCH, ControlType.INACTIVE);
         } else if (GdxUtilities.isRunningOnIOS()) {
             // Controllers (pads) do not exactly work on iOS.
             return GdxArrays.newArray(ControlType.TOUCH, ControlType.INACTIVE);
@@ -76,8 +75,6 @@ public class ControlsSwitchController implements ActionContainer, ViewDialogShow
         final Array<Controller> controllers = Controllers.getControllers();
         if (GdxArrays.isEmpty(controllers)) {
             changeControls(new InactiveControl());
-        } else {
-            changeControls(new GamePadControl(controllers.first()));
         }
     }
 
